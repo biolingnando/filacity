@@ -1,0 +1,3460 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILA SHOP - Website Penjualan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .shop-gradient {
+            background: linear-gradient(45deg, #dc2626, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .animate-scroll {
+            animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .product-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .category-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .price-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Container Utama -->
+    <div id="app" class="min-h-screen">
+        
+        <!-- Halaman Login -->
+        <div id="loginPage" class="min-h-screen gradient-bg flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+                <div class="text-center mb-8">
+                    <img src="https://i.ibb.co.com/hJnDns2B/images.png" alt="FILA SHOP" class="w-20 h-20 mx-auto mb-4 rounded-full shadow-lg">
+                    <h1 class="text-3xl font-bold shop-gradient mb-2">FILA SHOP</h1>
+                    <p class="text-gray-600">Masuk ke akun Anda</p>
+                </div>
+                
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor HP</label>
+                        <input type="tel" id="loginPhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan nomor HP" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="loginPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12" placeholder="Masukkan password" required>
+                            <button type="button" onclick="togglePassword('loginPassword')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-eye" id="loginPasswordIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300">
+                        Masuk
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">Belum punya akun? 
+                        <button onclick="showRegister()" class="text-blue-600 hover:text-blue-800 font-semibold">Daftar Sekarang</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Halaman Pendaftaran -->
+        <div id="registerPage" class="min-h-screen gradient-bg flex items-center justify-center p-4 hidden">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+                <div class="text-center mb-8">
+                    <img src="https://i.ibb.co.com/hJnDns2B/images.png" alt="FILA SHOP" class="w-20 h-20 mx-auto mb-4 rounded-full shadow-lg">
+                    <h1 class="text-3xl font-bold shop-gradient mb-2">FILA SHOP</h1>
+                    <p class="text-gray-600">Daftar akun baru</p>
+                </div>
+                
+                <form id="registerForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                        <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Umur (Maksimal 20 tahun)</label>
+                        <input type="number" id="age" max="20" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan umur" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin</label>
+                        <select id="gender" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            <option value="">Pilih jenis kelamin</option>
+                            <option value="pria">Pria</option>
+                            <option value="wanita">Wanita</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">ID Akun (Minimal 6 digit)</label>
+                        <input type="text" id="accountId" minlength="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Contoh: 123456789" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor HP</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan nomor HP" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan email" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12" placeholder="Masukkan password" required>
+                            <button type="button" onclick="togglePassword('password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-eye" id="passwordIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ulangi Password</label>
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12" placeholder="Ulangi password" required>
+                            <button type="button" onclick="togglePassword('confirmPassword')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-eye" id="confirmPasswordIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition duration-300">
+                        Daftar Akun
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">Sudah punya akun? 
+                        <button onclick="showLogin()" class="text-blue-600 hover:text-blue-800 font-semibold">Masuk Sekarang</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Utama -->
+        <div id="dashboard" class="hidden">
+            <!-- Header -->
+            <header class="bg-white shadow-lg">
+                <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+                    <div class="flex justify-between items-center py-3 sm:py-4">
+                        <div class="flex items-center space-x-2 sm:space-x-4">
+                            <img src="https://i.ibb.co.com/hJnDns2B/images.png" alt="FILA SHOP" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full">
+                            <h1 class="text-lg sm:text-xl md:text-2xl font-bold shop-gradient">FILA SHOP</h1>
+                        </div>
+                        <div class="flex items-center space-x-2 sm:space-x-4">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-xs sm:text-sm font-semibold" id="userNameDisplay"></p>
+                                <p class="text-xs sm:text-sm text-gray-600">ID: <span id="userIdDisplay"></span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-800">ID AKUN: <span id="headerAccountId"></span></p>
+                                <p class="text-xs sm:text-sm text-gray-600" id="currentDateTime"></p>
+                            </div>
+                            <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg transition duration-300 text-xs sm:text-sm">
+                                <i class="fas fa-sign-out-alt mr-1 sm:mr-2"></i><span class="hidden sm:inline">Logout</span><span class="sm:hidden">Exit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+
+            <!-- Content Area -->
+            <main class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 pb-20 sm:pb-24">
+                
+                <!-- Home Page -->
+                <div id="homePage" class="page-content">
+                    <div class="mb-6 sm:mb-8">
+                        <!-- Scrolling Announcement Banner -->
+                        <div id="announcementBanner" class="bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-lg mb-4 overflow-hidden relative">
+                            <div class="flex items-center py-3 px-4">
+                                <span class="text-xl mr-3">📢</span>
+                                <div class="flex-1 overflow-hidden">
+                                    <div id="scrollingText" class="whitespace-nowrap animate-scroll">
+                                        <span id="announcementText">Selamat Datang di FILA SHOP - Dapatkan produk berkualitas dengan harga terbaik!</span>
+                                    </div>
+                                </div>
+                                <div id="adminAnnouncementControls" class="ml-4 flex space-x-2 hidden">
+                                    <button onclick="editAnnouncement()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-1 rounded text-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="toggleAnnouncement()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-1 rounded text-sm">
+                                        <i class="fas fa-eye" id="announcementToggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Advertisement Section -->
+                        <div id="imageAdSection" class="mb-6">
+                            <div id="imageAdContainer" class="bg-white rounded-lg shadow-lg overflow-hidden">
+                                <img id="adImage" src="https://via.placeholder.com/800x200/667eea/ffffff?text=FILA+SHOP+-+Promo+Spesial" alt="Advertisement" class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <h3 id="adTitle" class="text-lg font-bold text-gray-800 mb-2">Promo Spesial FILA SHOP</h3>
+                                    <p id="adDescription" class="text-gray-600">Dapatkan diskon hingga 50% untuk semua produk FILA! Buruan sebelum kehabisan!</p>
+                                </div>
+                            </div>
+                            <div id="adminAdControls" class="mt-3 flex justify-center space-x-3 hidden">
+                                <button onclick="editImageAd()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
+                                    <i class="fas fa-edit mr-2"></i>Edit Iklan
+                                </button>
+                                <button onclick="toggleImageAd()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+                                    <i class="fas fa-eye" id="imageAdToggleIcon"></i>
+                                    <span id="imageAdToggleText">Sembunyikan</span>
+                                </button>
+                                <button onclick="deleteImageAd()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                                    <i class="fas fa-trash mr-2"></i>Hapus
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Saldo Info -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-6 md:mb-8">
+                            <!-- Card 1 - Saldo -->
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl shadow-lg">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-green-100 text-xs sm:text-sm">Saldo Anda</p>
+                                        <p class="text-lg sm:text-xl md:text-2xl font-bold" id="currentBalance">Rp 0</p>
+                                    </div>
+                                    <i class="fas fa-wallet text-xl sm:text-2xl md:text-3xl text-green-200"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 - Poin -->
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl shadow-lg">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-blue-100 text-xs sm:text-sm">Poin Anda</p>
+                                        <p class="text-lg sm:text-xl md:text-2xl font-bold" id="currentPoints">0 Poin</p>
+                                    </div>
+                                    <i class="fas fa-star text-xl sm:text-2xl md:text-3xl text-blue-200"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3 - Total Pembelian -->
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl shadow-lg">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-purple-100 text-xs sm:text-sm">Total Pembelian</p>
+                                        <p class="text-lg sm:text-xl md:text-2xl font-bold" id="totalPurchases">Rp 0</p>
+                                    </div>
+                                    <i class="fas fa-shopping-cart text-xl sm:text-2xl md:text-3xl text-purple-200"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Produk Section -->
+                        <div class="bg-white rounded-lg md:rounded-xl shadow-lg p-3 sm:p-4 md:p-6 mb-6 sm:mb-8">
+                            <div class="flex flex-col space-y-4 mb-6">
+                                <!-- Header dengan judul dan kontrol -->
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">Produk Unggulan</h3>
+                                    <div class="flex items-center space-x-3">
+                                        <!-- Shopping Cart Icon -->
+                                        <div class="relative">
+                                            <button onclick="toggleCart()" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition duration-300">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </button>
+                                            <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                                        </div>
+                                        
+                                        <!-- Admin Controls -->
+                                        <div id="adminProductControls" class="flex items-center space-x-2 hidden">
+                                            <button onclick="toggleProductLayout()" class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg text-sm">
+                                                <i class="fas fa-th" id="layoutIcon"></i>
+                                                <span id="layoutText">2x2</span>
+                                            </button>
+                                            <button onclick="showCategoryModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg text-sm">
+                                                <i class="fas fa-tags mr-1"></i>Kategori
+                                            </button>
+                                            <button onclick="showAddProductModal()" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm">
+                                                <i class="fas fa-plus mr-1"></i>Tambah
+                                            </button>
+                                            <button onclick="deleteAllProducts()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm">
+                                                <i class="fas fa-trash mr-1"></i>Hapus Semua
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Filter Kategori -->
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-sm font-medium text-gray-700">Filter:</span>
+                                    <button onclick="filterByCategory('all')" class="category-filter-btn px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 bg-blue-600 text-white" data-category="all">
+                                        Semua Produk
+                                    </button>
+                                    <div id="categoryFilters" class="flex flex-wrap gap-2">
+                                        <!-- Kategori filter akan ditampilkan di sini -->
+                                    </div>
+                                </div>
+                                
+                                <!-- Search Bar -->
+                                <div class="relative">
+                                    <input type="text" id="productSearch" placeholder="Cari produk..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onkeyup="searchProducts()">
+                                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                </div>
+                            </div>
+                            
+                            <div id="productAds" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                                <!-- Produk akan ditampilkan di sini -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Data Page -->
+                <div id="infoDataPage" class="page-content hidden">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Info Data</h2>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="bg-white rounded-xl shadow-lg mb-6">
+                        <div class="border-b border-gray-200">
+                            <nav class="flex space-x-8 px-6">
+                                <button onclick="showDataTab('products')" class="data-tab py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
+                                    Data Produk
+                                </button>
+                                <button onclick="showDataTab('topup')" class="data-tab py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
+                                    Top Up Saldo
+                                </button>
+                                <button onclick="showDataTab('withdrawal')" class="data-tab py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium">
+                                    Penarikan Saldo
+                                </button>
+                            </nav>
+                        </div>
+                        
+                        <!-- Data Produk Tab -->
+                        <div id="productsTab" class="tab-content p-6">
+                            <div class="mb-4">
+                                <div class="flex space-x-4">
+                                    <button onclick="showProductStatus('pending')" class="status-btn bg-yellow-500 text-white px-4 py-2 rounded-lg">Pending</button>
+                                    <button onclick="showProductStatus('progress')" class="status-btn bg-blue-500 text-white px-4 py-2 rounded-lg">Hampir Selesai</button>
+                                    <button onclick="showProductStatus('success')" class="status-btn bg-green-500 text-white px-4 py-2 rounded-lg">Sukses</button>
+                                    <button onclick="showProductStatus('failed')" class="status-btn bg-red-500 text-white px-4 py-2 rounded-lg">Gagal</button>
+                                </div>
+                            </div>
+                            <div id="productDataList" class="space-y-4">
+                                <!-- Data produk akan ditampilkan di sini -->
+                            </div>
+                        </div>
+                        
+                        <!-- Top Up Tab -->
+                        <div id="topupTab" class="tab-content p-6 hidden">
+                            <div id="topupDataList" class="space-y-4">
+                                <!-- Data top up akan ditampilkan di sini -->
+                            </div>
+                        </div>
+                        
+                        <!-- Withdrawal Tab -->
+                        <div id="withdrawalTab" class="tab-content p-6 hidden">
+                            <div id="withdrawalDataList" class="space-y-4">
+                                <!-- Data penarikan akan ditampilkan di sini -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saldo Page -->
+                <div id="saldoPage" class="page-content hidden">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Kelola Saldo</h2>
+                    
+                    <!-- Owner Controls -->
+                    <div id="ownerSaldoControls" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 hidden">
+                        <button onclick="showSaldoForm('send')" class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition duration-300 card-hover">
+                            <i class="fas fa-paper-plane text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Kirim Saldo</h3>
+                            <p class="text-green-100">Kirim saldo ke member</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('reduceSaldo')" class="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl shadow-lg hover:from-red-600 hover:to-red-700 transition duration-300 card-hover">
+                            <i class="fas fa-minus-circle text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Kurangi Saldo</h3>
+                            <p class="text-red-100">Kurangi saldo member</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('withdrawal')" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 card-hover">
+                            <i class="fas fa-money-bill-wave text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Penarikan Saldo</h3>
+                            <p class="text-blue-100">Kelola penarikan</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('addAdmin')" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg hover:from-purple-600 hover:to-purple-700 transition duration-300 card-hover">
+                            <i class="fas fa-user-plus text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Tambah Admin</h3>
+                            <p class="text-purple-100">Tambah admin baru</p>
+                        </button>
+                    </div>
+                    
+                    <!-- Admin Controls -->
+                    <div id="adminSaldoControls" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 hidden">
+                        <button onclick="showSaldoForm('send')" class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition duration-300 card-hover">
+                            <i class="fas fa-paper-plane text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Kirim Saldo</h3>
+                            <p class="text-green-100">Kirim saldo ke member</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('adminTopup')" class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition duration-300 card-hover">
+                            <i class="fas fa-plus-circle text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Top Up Saldo</h3>
+                            <p class="text-green-100">Tambah saldo member</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('withdrawal')" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 card-hover">
+                            <i class="fas fa-money-bill-wave text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Penarikan Saldo</h3>
+                            <p class="text-blue-100">Kelola penarikan</p>
+                        </button>
+                    </div>
+                    
+                    <!-- Member Controls -->
+                    <div id="memberSaldoControls" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <button onclick="showSaldoForm('topup')" class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition duration-300 card-hover">
+                            <i class="fas fa-plus-circle text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Top Up Saldo</h3>
+                            <p class="text-green-100">Isi saldo akun Anda</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('withdrawal')" class="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl shadow-lg hover:from-red-600 hover:to-red-700 transition duration-300 card-hover">
+                            <i class="fas fa-minus-circle text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Penarikan Saldo</h3>
+                            <p class="text-red-100">Tarik saldo ke rekening</p>
+                        </button>
+                        
+                        <button onclick="showSaldoForm('points')" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg hover:from-purple-600 hover:to-purple-700 transition duration-300 card-hover">
+                            <i class="fas fa-star text-4xl mb-4"></i>
+                            <h3 class="text-xl font-bold">Tukar Poin</h3>
+                            <p class="text-purple-100">10 Poin = Rp 1</p>
+                        </button>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div id="saldoFormContainer" class="hidden">
+                        <!-- Top Up Form -->
+                        <div id="topupForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Form Top Up Saldo</h3>
+                            <form class="space-y-4" onsubmit="submitTopupRequest(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+                                    <input type="text" id="topupName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ID Akun</label>
+                                    <input type="text" id="topupId" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Top Up</label>
+                                    <input type="number" id="topupAmount" min="10000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Minimal Rp 10.000" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Metode Pembayaran</label>
+                                    <select id="topupMethod" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <option value="">Pilih metode pembayaran</option>
+                                        <option value="DANA - WINORO HADI MUKTI">DANA - WINORO HADI MUKTI</option>
+                                        <option value="GoPay - WINORO HADI MUKTI">GoPay - WINORO HADI MUKTI</option>
+                                        <option value="ShopeePay - WINORO HADI MUKTI">ShopeePay - WINORO HADI MUKTI</option>
+                                        <option value="SeaBank - 901711939465">SeaBank - 901711939465</option>
+                                        <option value="Bank Jago - 102850087054">Bank Jago - 102850087054</option>
+                                        <option value="Bank Aladin - 50682991909">Bank Aladin - 50682991909</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Bukti Pembayaran</label>
+                                    <input type="file" id="topupProof" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Kirim Permintaan Top Up
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Withdrawal Form -->
+                        <div id="withdrawalForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Form Penarikan Saldo</h3>
+                            <form class="space-y-4" onsubmit="submitWithdrawalRequest(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Akun</label>
+                                    <input type="text" id="withdrawalName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ID Akun</label>
+                                    <input type="text" id="withdrawalId" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Penarikan</label>
+                                    <input type="number" id="withdrawalAmount" min="50000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Minimal Rp 50.000" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Bank/E-Wallet Tujuan</label>
+                                    <select id="withdrawalBank" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <option value="">Pilih bank/e-wallet</option>
+                                        <option value="DANA">DANA</option>
+                                        <option value="GoPay">GoPay</option>
+                                        <option value="ShopeePay">ShopeePay</option>
+                                        <option value="Bank BCA">Bank BCA</option>
+                                        <option value="Bank BNI">Bank BNI</option>
+                                        <option value="Bank BRI">Bank BRI</option>
+                                        <option value="Bank Mandiri">Bank Mandiri</option>
+                                        <option value="Bank BSI">Bank BSI</option>
+                                        <option value="SeaBank">SeaBank</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Rekening/E-Wallet</label>
+                                    <input type="text" id="withdrawalAccount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nomor rekening" required>
+                                </div>
+                                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Kirim Permintaan Penarikan
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Points Form -->
+                        <div id="pointsForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Tukar Poin ke Saldo</h3>
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
+                                <p class="text-purple-800 font-semibold">Poin Anda: <span id="pointsDisplay">0</span></p>
+                                <p class="text-purple-600 text-sm">10 Poin = Rp 1</p>
+                            </div>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Poin yang Ditukar</label>
+                                    <input type="number" min="10" step="10" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Minimal 10 poin" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nilai Tukar</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Rp 0">
+                                </div>
+                                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Tukar Poin
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Send Balance Form (Owner/Admin) -->
+                        <div id="sendForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Kirim Saldo ke Member</h3>
+                            <form class="space-y-4" onsubmit="sendBalance(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Cari Member (ID atau Nama)</label>
+                                    <input type="text" id="searchMember" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan ID atau nama member" required onkeyup="searchMembers()">
+                                    <div id="memberSearchResults" class="mt-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg hidden"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Member Terpilih</label>
+                                    <input type="text" id="selectedMember" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Pilih member dari hasil pencarian">
+                                    <input type="hidden" id="selectedMemberId">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Saldo</label>
+                                    <input type="number" min="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jumlah saldo" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Keterangan</label>
+                                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Keterangan pengiriman saldo"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Kirim Saldo
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Admin Top Up Form (Owner/Admin) -->
+                        <div id="adminTopupForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Top Up Saldo Member</h3>
+                            <form class="space-y-4" onsubmit="adminTopupBalance(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Cari Member (ID atau Nama)</label>
+                                    <input type="text" id="searchMemberAdminTopup" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan ID atau nama member" required onkeyup="searchMembersAdminTopup()">
+                                    <div id="memberSearchResultsAdminTopup" class="mt-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg hidden"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Member Terpilih</label>
+                                    <input type="text" id="selectedMemberAdminTopup" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Pilih member dari hasil pencarian">
+                                    <input type="hidden" id="selectedMemberIdAdminTopup">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Saldo Saat Ini</label>
+                                    <input type="text" id="currentMemberBalanceAdminTopup" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Rp 0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Top Up</label>
+                                    <input type="number" min="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jumlah top up" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Keterangan Top Up</label>
+                                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Keterangan top up saldo" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Top Up Saldo
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Reduce Balance Form (Owner Only) -->
+                        <div id="reduceSaldoForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Kurangi Saldo Member</h3>
+                            <form class="space-y-4" onsubmit="reduceMemberBalance(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Cari Member (ID atau Nama)</label>
+                                    <input type="text" id="searchMemberReduce" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan ID atau nama member" required onkeyup="searchMembersReduce()">
+                                    <div id="memberSearchResultsReduce" class="mt-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg hidden"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Member Terpilih</label>
+                                    <input type="text" id="selectedMemberReduce" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Pilih member dari hasil pencarian">
+                                    <input type="hidden" id="selectedMemberIdReduce">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Saldo Saat Ini</label>
+                                    <input type="text" id="currentMemberBalanceReduce" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly placeholder="Rp 0">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Jumlah Pengurangan</label>
+                                    <input type="number" min="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan jumlah pengurangan" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Alasan Pengurangan</label>
+                                    <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Alasan pengurangan saldo" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Kurangi Saldo
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Add Admin Form (Owner Only) -->
+                        <div id="addAdminForm" class="bg-white rounded-xl shadow-lg p-6 saldo-form hidden">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Tambah Admin Baru</h3>
+                            <form class="space-y-4" onsubmit="addAdmin(event)">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama lengkap admin" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor HP</label>
+                                    <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nomor HP" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                    <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan email admin" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">ID Admin (Minimal 6 digit)</label>
+                                    <input type="text" minlength="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contoh: ADM123456" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                    <div class="relative">
+                                        <input type="password" id="adminPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 pr-12" placeholder="Masukkan password" required>
+                                        <button type="button" onclick="togglePassword('adminPassword')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-eye" id="adminPasswordIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                                    Tambah Admin
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Page -->
+                <div id="profilePage" class="page-content hidden">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Profile Saya</h2>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex items-center space-x-8 mb-8">
+                            <div class="relative">
+                                <div id="profileImageContainer" class="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold cursor-pointer hover:opacity-80 transition-opacity overflow-hidden" onclick="triggerImageUpload()">
+                                    <i id="profileIcon" class="fas fa-user"></i>
+                                    <img id="profileImage" src="" alt="Profile" class="w-full h-full object-cover rounded-full hidden">
+                                </div>
+                                <button onclick="triggerImageUpload()" class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition duration-300">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                                <input type="file" id="profileImageInput" accept="image/*" class="hidden" onchange="uploadProfileImage(event)">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800" id="profileName">Nama Pengguna</h3>
+                                <p class="text-gray-600" id="profileRole">Member</p>
+                                <div class="mt-2">
+                                    <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full" id="profileStatus">Aktif</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
+                                <input type="text" id="profileFullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">ID Akun</label>
+                                <input type="text" id="profileAccountId" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nomor HP</label>
+                                <input type="tel" id="profilePhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" id="profileEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div id="profileAgeField" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Umur</label>
+                                <input type="text" id="profileAge" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div id="profileGenderField" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin</label>
+                                <input type="text" id="profileGender" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bergabung Sejak</label>
+                                <input type="text" id="profileJoinDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                                <input type="text" id="profileRoleField" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                            </div>
+                        </div>
+                        
+                        <!-- Statistics for Members -->
+                        <div id="memberStats" class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-wallet text-green-600 text-2xl mr-3"></i>
+                                    <div>
+                                        <p class="text-green-800 font-semibold">Saldo Saat Ini</p>
+                                        <p class="text-green-600" id="profileBalance">Rp 0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-purple-600 text-2xl mr-3"></i>
+                                    <div>
+                                        <p class="text-purple-800 font-semibold">Total Poin</p>
+                                        <p class="text-purple-600" id="profilePoints">0 Poin</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-shopping-cart text-blue-600 text-2xl mr-3"></i>
+                                    <div>
+                                        <p class="text-blue-800 font-semibold">Total Transaksi</p>
+                                        <p class="text-blue-600" id="profileTransactions">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+                <div class="grid grid-cols-4 h-14 sm:h-16">
+                    <button onclick="showPage('home')" class="nav-btn flex flex-col items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition duration-300">
+                        <i class="fas fa-home text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1"></i>
+                        <span class="text-xs">Home</span>
+                    </button>
+                    <button onclick="showPage('infoData')" class="nav-btn flex flex-col items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition duration-300">
+                        <i class="fas fa-info-circle text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1"></i>
+                        <span class="text-xs">Info Data</span>
+                    </button>
+                    <button onclick="showPage('saldo')" class="nav-btn flex flex-col items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition duration-300">
+                        <i class="fas fa-wallet text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1"></i>
+                        <span class="text-xs">Saldo</span>
+                    </button>
+                    <button onclick="showPage('profile')" class="nav-btn flex flex-col items-center justify-center text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition duration-300">
+                        <i class="fas fa-user text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1"></i>
+                        <span class="text-xs">Profile</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Edit Announcement Modal -->
+        <div id="editAnnouncementModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-800">Edit Pengumuman</h3>
+                    <button onclick="closeEditAnnouncementModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form onsubmit="saveAnnouncement(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Teks Pengumuman</label>
+                        <textarea id="editAnnouncementText" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Masukkan teks pengumuman..." required></textarea>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">
+                            Simpan
+                        </button>
+                        <button type="button" onclick="closeEditAnnouncementModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Image Ad Modal -->
+        <div id="editImageAdModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-800">Edit Iklan Gambar</h3>
+                    <button onclick="closeEditImageAdModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form onsubmit="saveImageAd(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Iklan</label>
+                        <input type="text" id="editAdTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama iklan..." required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Iklan</label>
+                        <textarea id="editAdDescription" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Masukkan deskripsi iklan..." required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Gambar Iklan</label>
+                        <input type="file" id="editAdImage" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah gambar</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">
+                            Simpan
+                        </button>
+                        <button type="button" onclick="closeEditImageAdModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden" onclick="closeImageModal()">
+            <div class="bg-white rounded-lg p-4 max-w-4xl max-h-screen overflow-auto" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="imageModalTitle" class="text-lg font-bold text-gray-800">Bukti Pembayaran</h3>
+                    <button onclick="closeImageModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="text-center">
+                    <img id="modalImage" src="" alt="Bukti Pembayaran" class="max-w-full max-h-96 object-contain rounded-lg">
+                </div>
+                <div class="mt-4 text-center">
+                    <button onclick="closeImageModal()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Detail Modal -->
+        <div id="productDetailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg w-full max-w-2xl mx-4 max-h-screen overflow-auto">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-800">Detail Produk</h3>
+                    <button onclick="closeProductDetailModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <img id="detailProductImage" src="" alt="Product" class="w-full h-64 object-cover rounded-lg">
+                        </div>
+                        <div>
+                            <h4 id="detailProductName" class="text-2xl font-bold text-gray-800 mb-3"></h4>
+                            <p id="detailProductPrice" class="text-3xl font-bold text-blue-600 mb-3"></p>
+                            <p id="detailProductDescription" class="text-gray-600 mb-4"></p>
+                            <div class="space-y-2 mb-4">
+                                <p class="text-sm text-gray-600">ID Produk: <span id="detailProductId" class="font-semibold"></span></p>
+                                <p class="text-sm text-gray-600">Stok: <span id="detailProductStock" class="font-semibold"></span></p>
+                                <p class="text-sm text-gray-600">Kategori: <span id="detailProductCategory" class="font-semibold"></span></p>
+                            </div>
+                            <div class="flex items-center space-x-3 mb-4">
+                                <label class="text-sm font-medium text-gray-700">Jumlah:</label>
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="decreaseQuantity()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-minus text-xs"></i>
+                                    </button>
+                                    <input type="number" id="productQuantity" value="1" min="1" class="w-16 text-center border border-gray-300 rounded-lg py-1">
+                                    <button onclick="increaseQuantity()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-plus text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="addToCart()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-lg font-semibold">
+                                    <i class="fas fa-cart-plus mr-2"></i>Tambah ke Keranjang
+                                </button>
+                                <button onclick="buyNow()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
+                                    <i class="fas fa-shopping-bag mr-2"></i>Beli Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shopping Cart Modal -->
+        <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg w-full max-w-4xl mx-4 max-h-screen overflow-auto">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-800">Keranjang Belanja</h3>
+                    <button onclick="closeCartModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div id="cartItems" class="space-y-4 mb-6">
+                        <!-- Cart items will be displayed here -->
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-lg font-semibold">Total:</span>
+                            <span id="cartTotal" class="text-2xl font-bold text-blue-600">Rp 0</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button onclick="clearCart()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg">
+                                <i class="fas fa-trash mr-2"></i>Kosongkan Keranjang
+                            </button>
+                            <button onclick="checkoutCart()" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold">
+                                <i class="fas fa-credit-card mr-2"></i>Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Management Modal -->
+        <div id="categoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg w-full max-w-2xl mx-4 max-h-screen overflow-auto">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <h3 class="text-xl font-bold text-gray-800">Manajemen Kategori</h3>
+                    <button onclick="closeCategoryModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <!-- Add New Category -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Tambah Kategori Baru</h4>
+                        <div class="flex space-x-3">
+                            <input type="text" id="categoryNameInput" placeholder="Nama kategori..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <button onclick="addCategory()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold">
+                                <i class="fas fa-plus mr-2"></i>Tambah
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Category List -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Daftar Kategori</h4>
+                        <div id="categoryList" class="space-y-2">
+                            <!-- Categories will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Product Modal -->
+        <div id="addProductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg w-full max-w-lg mx-4 max-h-screen overflow-auto">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <h3 id="productModalTitle" class="text-xl font-bold text-gray-800">Tambah Produk</h3>
+                    <button onclick="closeAddProductModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <form id="productForm" onsubmit="saveProduct(event)">
+                        <input type="hidden" id="editProductId">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Produk</label>
+                                <input type="text" id="productName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Harga</label>
+                                <input type="number" id="productPrice" min="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Stok</label>
+                                <input type="number" id="productStock" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
+                                <div class="flex space-x-2">
+                                    <select id="productCategory" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                        <option value="">Pilih Kategori</option>
+                                        <!-- Kategori akan dimuat secara dinamis -->
+                                    </select>
+                                    <button type="button" onclick="showNewCategoryInput()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div id="newCategoryInput" class="mt-2 hidden">
+                                    <div class="flex space-x-2">
+                                        <input type="text" id="newCategoryName" placeholder="Nama kategori baru..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        <button type="button" onclick="addNewCategory()" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm">
+                                            Tambah
+                                        </button>
+                                        <button type="button" onclick="hideNewCategoryInput()" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-lg text-sm">
+                                            Batal
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                                <textarea id="productDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Gambar Produk</label>
+                                <input type="file" id="productImage" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah gambar (untuk edit)</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3 mt-6">
+                            <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
+                                <i class="fas fa-save mr-2"></i>Simpan
+                            </button>
+                            <button type="button" onclick="closeAddProductModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 rounded-lg font-semibold">
+                                Batal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let users = JSON.parse(localStorage.getItem('filaShopUsers')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let productLayout = localStorage.getItem('productLayout') || '2x2'; // '2x2' or '1x1'
+        let currentProductDetail = null;
+        let announcements = JSON.parse(localStorage.getItem('announcements')) || {
+            text: 'Selamat Datang di FILA SHOP - Dapatkan produk berkualitas dengan harga terbaik!',
+            enabled: true
+        };
+        let imageAd = JSON.parse(localStorage.getItem('imageAd')) || {
+            title: 'Promo Spesial FILA SHOP',
+            description: 'Dapatkan diskon hingga 50% untuk semua produk FILA! Buruan sebelum kehabisan!',
+            image: 'https://via.placeholder.com/800x200/667eea/ffffff?text=FILA+SHOP+-+Promo+Spesial',
+            enabled: true
+        };
+        let categories = JSON.parse(localStorage.getItem('categories')) || [];
+        let selectedCategory = localStorage.getItem('selectedCategory') || 'all';
+
+        // Initialize default owner account
+        if (!users.find(u => u.phone === '089646775883')) {
+            users.push({
+                id: 'OWNER001',
+                name: 'Owner FILA SHOP',
+                phone: '089646775883',
+                password: '123456',
+                role: 'owner',
+                balance: 0,
+                points: 0,
+                joinDate: new Date().toISOString()
+            });
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+        }
+
+        // Initialize empty products array - no default products
+        // Products will be added through the admin interface
+
+        // Toggle password visibility
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(inputId + 'Icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Show/Hide pages
+        function showLogin() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('registerPage').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('registerPage').classList.remove('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('registerPage').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            updateUserDisplay();
+            showPage('home');
+        }
+
+        // Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(pageName + 'Page').classList.remove('hidden');
+            
+            // Update navigation - reset all buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600', 'bg-blue-50');
+                btn.classList.add('text-gray-600');
+            });
+            
+            // Highlight active button
+            const activeButtons = {
+                'home': 0,
+                'infoData': 1,
+                'saldo': 2,
+                'profile': 3
+            };
+            
+            const navButtons = document.querySelectorAll('.nav-btn');
+            if (navButtons[activeButtons[pageName]]) {
+                navButtons[activeButtons[pageName]].classList.remove('text-gray-600');
+                navButtons[activeButtons[pageName]].classList.add('text-blue-600', 'bg-blue-50');
+            }
+            
+            if (pageName === 'home') {
+                loadProducts();
+            }
+            
+            if (pageName === 'saldo') {
+                setupSaldoPage();
+            }
+            
+            if (pageName === 'profile') {
+                loadProfileData();
+            }
+        }
+
+        // Setup saldo page based on user role
+        function setupSaldoPage() {
+            const ownerControls = document.getElementById('ownerSaldoControls');
+            const adminControls = document.getElementById('adminSaldoControls');
+            const memberControls = document.getElementById('memberSaldoControls');
+            
+            if (currentUser.role === 'owner') {
+                ownerControls.classList.remove('hidden');
+                adminControls.classList.add('hidden');
+                memberControls.classList.add('hidden');
+            } else if (currentUser.role === 'admin') {
+                ownerControls.classList.add('hidden');
+                adminControls.classList.remove('hidden');
+                memberControls.classList.add('hidden');
+            } else {
+                ownerControls.classList.add('hidden');
+                adminControls.classList.add('hidden');
+                memberControls.classList.remove('hidden');
+            }
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('loginPhone').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.phone === phone && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showDashboard();
+            } else {
+                alert('Nomor HP atau password salah!');
+            }
+        });
+
+        // Register form handler
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('fullName').value,
+                age: parseInt(document.getElementById('age').value),
+                gender: document.getElementById('gender').value,
+                id: document.getElementById('accountId').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value
+            };
+            
+            // Validation
+            if (formData.age > 20) {
+                alert('Umur maksimal 20 tahun!');
+                return;
+            }
+            
+            if (formData.id.length < 6) {
+                alert('ID Akun minimal 6 digit!');
+                return;
+            }
+            
+            if (users.find(u => u.id === formData.id)) {
+                alert('ID Akun sudah digunakan!');
+                return;
+            }
+            
+            if (users.find(u => u.phone === formData.phone)) {
+                alert('Nomor HP sudah terdaftar!');
+                return;
+            }
+            
+            if (formData.password !== formData.confirmPassword) {
+                alert('Password tidak cocok!');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: formData.id,
+                name: formData.name,
+                age: formData.age,
+                gender: formData.gender,
+                phone: formData.phone,
+                email: formData.email,
+                password: formData.password,
+                role: 'member',
+                balance: 0,
+                points: 0,
+                joinDate: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            
+            alert('Pendaftaran berhasil! Silakan login.');
+            showLogin();
+        });
+
+        // Update user display
+        function updateUserDisplay() {
+            if (currentUser) {
+                document.getElementById('userIdDisplay').textContent = currentUser.id;
+                document.getElementById('userNameDisplay').textContent = currentUser.name;
+                document.getElementById('headerAccountId').textContent = currentUser.id;
+                document.getElementById('currentBalance').textContent = 'Rp ' + currentUser.balance.toLocaleString('id-ID');
+                document.getElementById('currentPoints').textContent = currentUser.points + ' Poin';
+                
+                // Calculate total purchases
+                const userPurchases = transactions.filter(t => 
+                    t.userId === currentUser.id && 
+                    t.type === 'product_purchase' && 
+                    t.status === 'success'
+                );
+                const totalPurchaseAmount = userPurchases.reduce((total, purchase) => total + purchase.price, 0);
+                document.getElementById('totalPurchases').textContent = 'Rp ' + totalPurchaseAmount.toLocaleString('id-ID');
+                
+                // Show admin controls for announcements and ads
+                if (currentUser.role === 'owner' || currentUser.role === 'admin') {
+                    document.getElementById('adminAnnouncementControls').classList.remove('hidden');
+                    document.getElementById('adminAdControls').classList.remove('hidden');
+                    document.getElementById('adminProductControls').classList.remove('hidden');
+                } else {
+                    document.getElementById('adminAnnouncementControls').classList.add('hidden');
+                    document.getElementById('adminAdControls').classList.add('hidden');
+                    document.getElementById('adminProductControls').classList.add('hidden');
+                }
+                
+                // Load advertisements
+                loadAnnouncements();
+                loadImageAd();
+                
+                // Update cart display
+                updateCartDisplay();
+            }
+            updateDateTime();
+        }
+
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Jakarta'
+            };
+            const dateTimeString = now.toLocaleDateString('id-ID', options).replace(',', '');
+            document.getElementById('currentDateTime').textContent = dateTimeString;
+        }
+
+        // Load products
+        function loadProducts() {
+            const container = document.getElementById('productAds');
+            container.innerHTML = '';
+            
+            // Update layout based on current setting
+            updateProductLayout();
+            
+            // Load category filters
+            loadCategoryFilters();
+            
+            // Filter products based on selected category and search
+            let filteredProducts = products;
+            
+            // Filter by category
+            if (selectedCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.category === selectedCategory
+                );
+            }
+            
+            // Filter by search term
+            const searchTerm = document.getElementById('productSearch')?.value.toLowerCase() || '';
+            if (searchTerm) {
+                filteredProducts = filteredProducts.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm) ||
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filteredProducts.length === 0) {
+                const message = searchTerm ? 'Tidak ada produk yang sesuai dengan pencarian' : 
+                               selectedCategory !== 'all' ? 'Tidak ada produk dalam kategori ini' : 
+                               'Belum ada produk';
+                container.innerHTML = `<div class="col-span-full text-center py-12">
+                    <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500 text-lg">${message}</p>
+                </div>`;
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const isAdmin = currentUser.role === 'owner' || currentUser.role === 'admin';
+                const stockStatus = product.stock <= 0 ? 'Habis' : product.stock <= 5 ? 'Terbatas' : 'Tersedia';
+                const stockColor = product.stock <= 0 ? 'text-red-600' : product.stock <= 5 ? 'text-orange-600' : 'text-green-600';
+                const discountBadge = Math.random() > 0.7 ? `<div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">PROMO</div>` : '';
+                
+                const productCard = `
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover relative group border border-gray-100">
+                        ${discountBadge}
+                        ${isAdmin ? `
+                            <div class="absolute top-2 right-2 z-10 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                <button onclick="editProduct('${product.id}')" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full shadow-lg">
+                                    <i class="fas fa-edit text-xs"></i>
+                                </button>
+                                <button onclick="deleteProduct('${product.id}')" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="relative overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover cursor-pointer transform group-hover:scale-105 transition-transform duration-300" onclick="showProductDetail('${product.id}')">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <!-- Category Badge -->
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">${product.category}</span>
+                                <span class="text-xs ${stockColor} font-semibold">${stockStatus}</span>
+                            </div>
+                            
+                            <h4 class="font-bold text-lg text-gray-800 mb-2 cursor-pointer hover:text-blue-600 transition-colors duration-200 line-clamp-2" onclick="showProductDetail('${product.id}')">${product.name}</h4>
+                            
+                            <p class="text-gray-600 text-sm mb-3 line-clamp-2">${product.description}</p>
+                            
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <span class="text-2xl font-bold text-blue-600">Rp ${product.price.toLocaleString('id-ID')}</span>
+                                    ${Math.random() > 0.7 ? `<div class="text-xs text-gray-500 line-through">Rp ${(product.price * 1.2).toLocaleString('id-ID')}</div>` : ''}
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-500">Stok</div>
+                                    <div class="font-semibold ${stockColor}">${product.stock}</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Rating Stars (Random for demo) -->
+                            <div class="flex items-center mb-3">
+                                <div class="flex text-yellow-400">
+                                    ${Array.from({length: 5}, (_, i) => 
+                                        `<i class="fas fa-star${Math.random() > 0.2 ? '' : ' text-gray-300'}"></i>`
+                                    ).join('')}
+                                </div>
+                                <span class="text-xs text-gray-500 ml-2">(${Math.floor(Math.random() * 50) + 10} ulasan)</span>
+                            </div>
+                            
+                            <div class="flex space-x-2">
+                                <button onclick="showProductDetail('${product.id}')" class="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-3 py-2 rounded-lg transition-all duration-300 text-sm font-semibold shadow-md">
+                                    <i class="fas fa-eye mr-1"></i>Detail
+                                </button>
+                                <button onclick="quickAddToCart('${product.id}')" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 py-2 rounded-lg transition-all duration-300 text-sm font-semibold shadow-md ${product.stock <= 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${product.stock <= 0 ? 'disabled' : ''}>
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += productCard;
+            });
+        }
+
+        // Product Layout Functions
+        function toggleProductLayout() {
+            productLayout = productLayout === '2x2' ? '1x1' : '2x2';
+            localStorage.setItem('productLayout', productLayout);
+            updateProductLayout();
+            loadProducts();
+        }
+        
+        function updateProductLayout() {
+            const container = document.getElementById('productAds');
+            const layoutIcon = document.getElementById('layoutIcon');
+            const layoutText = document.getElementById('layoutText');
+            
+            if (productLayout === '1x1') {
+                container.className = 'grid grid-cols-1 gap-3 sm:gap-4 md:gap-6';
+                layoutIcon.className = 'fas fa-list';
+                layoutText.textContent = '1x1';
+            } else {
+                container.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6';
+                layoutIcon.className = 'fas fa-th';
+                layoutText.textContent = '2x2';
+            }
+        }
+
+        // Product Detail Functions
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentProductDetail = product;
+            
+            document.getElementById('detailProductImage').src = product.image;
+            document.getElementById('detailProductName').textContent = product.name;
+            document.getElementById('detailProductPrice').textContent = 'Rp ' + product.price.toLocaleString('id-ID');
+            document.getElementById('detailProductDescription').textContent = product.description;
+            document.getElementById('detailProductId').textContent = product.id;
+            document.getElementById('detailProductStock').textContent = product.stock;
+            document.getElementById('detailProductCategory').textContent = product.category;
+            document.getElementById('productQuantity').value = 1;
+            document.getElementById('productQuantity').max = product.stock;
+            
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+        
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.add('hidden');
+            currentProductDetail = null;
+        }
+        
+        function increaseQuantity() {
+            const input = document.getElementById('productQuantity');
+            const max = parseInt(input.max);
+            const current = parseInt(input.value);
+            if (current < max) {
+                input.value = current + 1;
+            }
+        }
+        
+        function decreaseQuantity() {
+            const input = document.getElementById('productQuantity');
+            const current = parseInt(input.value);
+            if (current > 1) {
+                input.value = current - 1;
+            }
+        }
+
+        // Cart Functions
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartCount.textContent = totalItems;
+                cartCount.classList.remove('hidden');
+            } else {
+                cartCount.classList.add('hidden');
+            }
+        }
+        
+        function quickAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            if (product.stock <= 0) {
+                alert('Stok produk habis!');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.productId === productId);
+            
+            if (existingItem) {
+                if (existingItem.quantity < product.stock) {
+                    existingItem.quantity += 1;
+                } else {
+                    alert('Jumlah melebihi stok yang tersedia!');
+                    return;
+                }
+            } else {
+                cart.push({
+                    productId: productId,
+                    productName: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            toast.textContent = 'Produk ditambahkan ke keranjang!';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 2000);
+        }
+        
+        function addToCart() {
+            if (!currentProductDetail) return;
+            
+            const quantity = parseInt(document.getElementById('productQuantity').value);
+            const product = currentProductDetail;
+            
+            if (quantity > product.stock) {
+                alert('Jumlah melebihi stok yang tersedia!');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.productId === product.id);
+            
+            if (existingItem) {
+                const newQuantity = existingItem.quantity + quantity;
+                if (newQuantity <= product.stock) {
+                    existingItem.quantity = newQuantity;
+                } else {
+                    alert('Total jumlah melebihi stok yang tersedia!');
+                    return;
+                }
+            } else {
+                cart.push({
+                    productId: product.id,
+                    productName: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: quantity
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            closeProductDetailModal();
+            
+            alert(`${quantity} ${product.name} berhasil ditambahkan ke keranjang!`);
+        }
+        
+        function buyNow() {
+            if (!currentProductDetail) return;
+            
+            const quantity = parseInt(document.getElementById('productQuantity').value);
+            const product = currentProductDetail;
+            const totalPrice = product.price * quantity;
+            
+            if (quantity > product.stock) {
+                alert('Jumlah melebihi stok yang tersedia!');
+                return;
+            }
+            
+            if (currentUser.balance < totalPrice) {
+                alert('Saldo tidak mencukupi! Silakan top up terlebih dahulu.');
+                return;
+            }
+            
+            processPurchase([{
+                productId: product.id,
+                productName: product.name,
+                price: product.price,
+                quantity: quantity
+            }]);
+            
+            closeProductDetailModal();
+        }
+        
+        function toggleCart() {
+            document.getElementById('cartModal').classList.remove('hidden');
+            loadCartItems();
+        }
+        
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+        
+        function loadCartItems() {
+            const container = document.getElementById('cartItems');
+            const totalElement = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Keranjang kosong</p>';
+                totalElement.textContent = 'Rp 0';
+                return;
+            }
+            
+            let total = 0;
+            container.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = `
+                    <div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
+                        <img src="${item.image}" alt="${item.productName}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-800">${item.productName}</h4>
+                            <p class="text-gray-600">Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateCartQuantity(${index}, -1)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <span class="w-8 text-center">${item.quantity}</span>
+                            <button onclick="updateCartQuantity(${index}, 1)" class="bg-gray-300 hover:bg-gray-400 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">Rp ${itemTotal.toLocaleString('id-ID')}</p>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-sm">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cartItem;
+            });
+            
+            totalElement.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+        
+        function updateCartQuantity(index, change) {
+            const item = cart[index];
+            const product = products.find(p => p.id === item.productId);
+            
+            if (!product) return;
+            
+            const newQuantity = item.quantity + change;
+            
+            if (newQuantity <= 0) {
+                removeFromCart(index);
+                return;
+            }
+            
+            if (newQuantity > product.stock) {
+                alert('Jumlah melebihi stok yang tersedia!');
+                return;
+            }
+            
+            cart[index].quantity = newQuantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            loadCartItems();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            loadCartItems();
+        }
+        
+        function clearCart() {
+            if (confirm('Apakah Anda yakin ingin mengosongkan keranjang?')) {
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                loadCartItems();
+            }
+        }
+        
+        function checkoutCart() {
+            if (cart.length === 0) {
+                alert('Keranjang kosong!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            if (currentUser.balance < total) {
+                alert('Saldo tidak mencukupi! Silakan top up terlebih dahulu.');
+                return;
+            }
+            
+            // Check stock availability
+            for (let item of cart) {
+                const product = products.find(p => p.id === item.productId);
+                if (!product || product.stock < item.quantity) {
+                    alert(`Stok ${item.productName} tidak mencukupi!`);
+                    return;
+                }
+            }
+            
+            processPurchase(cart);
+            
+            // Clear cart
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            closeCartModal();
+        }
+        
+        function processPurchase(items) {
+            const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalPoints = Math.floor(total / 10000); // 1 poin per 10rb rupiah
+            
+            // Create transaction
+            const transaction = {
+                id: 'TXN' + Date.now(),
+                type: 'product_purchase',
+                userId: currentUser.id,
+                userName: currentUser.name,
+                items: items,
+                totalPrice: total,
+                totalQuantity: items.reduce((sum, item) => sum + item.quantity, 0),
+                status: 'pending',
+                date: new Date().toISOString(),
+                points: totalPoints
+            };
+            
+            transactions.push(transaction);
+            
+            // Update user balance
+            currentUser.balance -= total;
+            
+            // Update product stock
+            items.forEach(item => {
+                const productIndex = products.findIndex(p => p.id === item.productId);
+                if (productIndex !== -1) {
+                    products[productIndex].stock -= item.quantity;
+                }
+            });
+            
+            // Update storage
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            users[userIndex] = currentUser;
+            
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('products', JSON.stringify(products));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            updateUserDisplay();
+            loadProducts();
+            
+            const itemNames = items.map(item => `${item.quantity}x ${item.productName}`).join(', ');
+            alert(`Pembelian berhasil!\n\nProduk: ${itemNames}\nTotal: Rp ${total.toLocaleString('id-ID')}\nPoin: ${totalPoints}\n\nStatus: Pending - Menunggu konfirmasi admin`);
+        }
+
+        // Info Data functions
+        function showDataTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+            
+            // Update tab buttons
+            document.querySelectorAll('.data-tab').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            event.target.classList.remove('border-transparent', 'text-gray-500');
+            event.target.classList.add('border-blue-500', 'text-blue-600');
+            
+            if (tabName === 'products') {
+                showProductStatus('pending');
+            } else if (tabName === 'topup') {
+                loadTopupData();
+            } else if (tabName === 'withdrawal') {
+                loadWithdrawalData();
+            }
+        }
+
+        // Product Management Functions
+        function showAddProductModal() {
+            document.getElementById('productModalTitle').textContent = 'Tambah Produk';
+            document.getElementById('editProductId').value = '';
+            document.getElementById('productForm').reset();
+            loadProductCategories();
+            document.getElementById('addProductModal').classList.remove('hidden');
+        }
+        
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').classList.add('hidden');
+        }
+        
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            document.getElementById('productModalTitle').textContent = 'Edit Produk';
+            document.getElementById('editProductId').value = product.id;
+            loadProductCategories();
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productStock').value = product.stock;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productDescription').value = product.description;
+            
+            document.getElementById('addProductModal').classList.remove('hidden');
+        }
+        
+        function saveProduct(event) {
+            event.preventDefault();
+            
+            const productId = document.getElementById('editProductId').value;
+            const isEdit = productId !== '';
+            
+            const productData = {
+                name: document.getElementById('productName').value,
+                price: parseInt(document.getElementById('productPrice').value),
+                stock: parseInt(document.getElementById('productStock').value),
+                category: document.getElementById('productCategory').value,
+                description: document.getElementById('productDescription').value
+            };
+            
+            const imageFile = document.getElementById('productImage').files[0];
+            
+            function saveProductData(imageData = null) {
+                if (isEdit) {
+                    // Edit existing product
+                    const productIndex = products.findIndex(p => p.id === productId);
+                    if (productIndex !== -1) {
+                        products[productIndex] = {
+                            ...products[productIndex],
+                            ...productData,
+                            image: imageData || products[productIndex].image
+                        };
+                    }
+                } else {
+                    // Add new product
+                    const newProduct = {
+                        id: 'PROD' + Date.now(),
+                        ...productData,
+                        image: imageData || 'https://via.placeholder.com/300x200/667eea/ffffff?text=' + encodeURIComponent(productData.name)
+                    };
+                    products.push(newProduct);
+                }
+                
+                localStorage.setItem('products', JSON.stringify(products));
+                loadProducts();
+                closeAddProductModal();
+                
+                alert(isEdit ? 'Produk berhasil diperbarui!' : 'Produk berhasil ditambahkan!');
+            }
+            
+            if (imageFile) {
+                // Validate file type
+                if (!imageFile.type.startsWith('image/')) {
+                    alert('Harap pilih file gambar yang valid!');
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (imageFile.size > 5 * 1024 * 1024) {
+                    alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveProductData(e.target.result);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                saveProductData();
+            }
+        }
+        
+        function deleteProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) {
+                alert('Produk tidak ditemukan!');
+                return;
+            }
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus produk "${product.name}"?\n\nTindakan ini tidak dapat dibatalkan!`)) {
+                const productIndex = products.findIndex(p => p.id === productId);
+                if (productIndex !== -1) {
+                    products.splice(productIndex, 1);
+                    
+                    // Update localStorage
+                    localStorage.setItem('products', JSON.stringify(products));
+                    
+                    // Reload products display
+                    loadProducts();
+                    
+                    alert(`Produk "${product.name}" berhasil dihapus!`);
+                } else {
+                    alert('Gagal menghapus produk!');
+                }
+            }
+        }
+        
+        function deleteAllProducts() {
+            if (products.length === 0) {
+                alert('Tidak ada produk untuk dihapus!');
+                return;
+            }
+            
+            const productCount = products.length;
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus SEMUA ${productCount} produk?\n\nTindakan ini tidak dapat dibatalkan!`)) {
+                if (confirm('KONFIRMASI TERAKHIR: Hapus SEMUA produk sekarang?')) {
+                    // Clear products array
+                    products = [];
+                    
+                    // Update localStorage
+                    localStorage.setItem('products', JSON.stringify(products));
+                    
+                    // Reload products display
+                    loadProducts();
+                    
+                    alert(`Semua ${productCount} produk berhasil dihapus!`);
+                }
+            }
+        }
+
+        function showProductStatus(status) {
+            const container = document.getElementById('productDataList');
+            let userTransactions;
+            
+            // Admin/Owner can see all transactions, members only see their own
+            if (currentUser.role === 'owner' || currentUser.role === 'admin') {
+                userTransactions = transactions.filter(t => 
+                    t.type === 'product_purchase' && 
+                    t.status === status
+                );
+            } else {
+                userTransactions = transactions.filter(t => 
+                    t.userId === currentUser.id && 
+                    t.type === 'product_purchase' && 
+                    t.status === status
+                );
+            }
+            
+            container.innerHTML = '';
+            
+            if (userTransactions.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Tidak ada data</p>';
+                return;
+            }
+            
+            userTransactions.forEach(transaction => {
+                const user = users.find(u => u.id === transaction.userId);
+                const isAdmin = currentUser.role === 'owner' || currentUser.role === 'admin';
+                
+                // Handle both old and new transaction formats
+                let transactionDetails = '';
+                if (transaction.items) {
+                    // New format with multiple items
+                    const itemsList = transaction.items.map(item => 
+                        `${item.quantity}x ${item.productName} (Rp ${item.price.toLocaleString('id-ID')})`
+                    ).join('<br>');
+                    
+                    transactionDetails = `
+                        <h4 class="font-semibold text-gray-800">Pembelian Multiple Items</h4>
+                        <div class="text-gray-600 mb-2">${itemsList}</div>
+                        <p class="text-gray-600">Total Quantity: ${transaction.totalQuantity}</p>
+                        <p class="text-gray-600">Total Harga: Rp ${transaction.totalPrice.toLocaleString('id-ID')}</p>
+                    `;
+                } else {
+                    // Old format with single item
+                    transactionDetails = `
+                        <h4 class="font-semibold text-gray-800">${transaction.productName}</h4>
+                        <p class="text-gray-600">Harga: Rp ${transaction.price.toLocaleString('id-ID')}</p>
+                    `;
+                }
+                
+                const card = `
+                    <div class="bg-gray-50 rounded-lg p-4 border">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                ${transactionDetails}
+                                <p class="text-gray-600">ID Transaksi: ${transaction.id}</p>
+                                ${isAdmin ? `<p class="text-gray-600">Member: ${user ? user.name : 'Unknown'} (${transaction.userId})</p>` : ''}
+                                <p class="text-gray-600">Poin Didapat: ${transaction.points}</p>
+                                <p class="text-gray-600 text-sm">Tanggal: ${new Date(transaction.date).toLocaleDateString('id-ID', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}</p>
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(transaction.status)}">
+                                    ${getStatusText(transaction.status)}
+                                </span>
+                                ${isAdmin && transaction.status === 'pending' ? `
+                                    <div class="flex space-x-2">
+                                        <button onclick="updateTransactionStatus('${transaction.id}', 'progress')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                                            Proses
+                                        </button>
+                                        <button onclick="updateTransactionStatus('${transaction.id}', 'success')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
+                                            Sukses
+                                        </button>
+                                        <button onclick="updateTransactionStatus('${transaction.id}', 'failed')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
+                                            Gagal
+                                        </button>
+                                    </div>
+                                ` : ''}
+                                ${isAdmin && transaction.status === 'progress' ? `
+                                    <div class="flex space-x-2">
+                                        <button onclick="updateTransactionStatus('${transaction.id}', 'success')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
+                                            Sukses
+                                        </button>
+                                        <button onclick="updateTransactionStatus('${transaction.id}', 'failed')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
+                                            Gagal
+                                        </button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function loadTopupData() {
+            const container = document.getElementById('topupDataList');
+            let topupRequests;
+            
+            // Admin/Owner can see all top up requests, members only see their own
+            if (currentUser.role === 'owner' || currentUser.role === 'admin') {
+                topupRequests = transactions.filter(t => t.type === 'topup_request');
+            } else {
+                topupRequests = transactions.filter(t => 
+                    t.userId === currentUser.id && 
+                    t.type === 'topup_request'
+                );
+            }
+            
+            container.innerHTML = '';
+            
+            if (topupRequests.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Belum ada permintaan top up</p>';
+                return;
+            }
+            
+            topupRequests.forEach(request => {
+                const user = users.find(u => u.id === request.userId);
+                const isAdmin = currentUser.role === 'owner' || currentUser.role === 'admin';
+                
+                const card = `
+                    <div class="bg-gray-50 rounded-lg p-4 border">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-800">Permintaan Top Up</h4>
+                                <p class="text-gray-600">ID: ${request.id}</p>
+                                ${isAdmin ? `<p class="text-gray-600">Member: ${user ? user.name : 'Unknown'} (${request.userId})</p>` : ''}
+                                <p class="text-gray-600">Jumlah: Rp ${request.amount.toLocaleString('id-ID')}</p>
+                                <p class="text-gray-600">Metode: ${request.paymentMethod}</p>
+                                <p class="text-gray-600 text-sm">Tanggal: ${new Date(request.date).toLocaleDateString('id-ID', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}</p>
+                                ${request.proofImage ? `
+                                    <div class="mt-3">
+                                        <p class="text-blue-600 text-sm mb-2">✓ Bukti pembayaran:</p>
+                                        <img src="${request.proofImageData}" alt="Bukti Pembayaran" class="w-32 h-32 object-cover rounded-lg border cursor-pointer hover:opacity-80 transition-opacity" onclick="showImageModal('${request.proofImageData}', 'Bukti Pembayaran - ${request.id}')">
+                                        <p class="text-xs text-gray-500 mt-1">Klik untuk memperbesar</p>
+                                    </div>
+                                ` : '<p class="text-red-600 text-sm mt-2">⚠ Tidak ada bukti pembayaran</p>'}
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(request.status)}">
+                                    ${getStatusText(request.status)}
+                                </span>
+                                ${isAdmin && request.status === 'pending' ? `
+                                    <div class="flex space-x-2">
+                                        <button onclick="approveTopup('${request.id}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
+                                            Setujui
+                                        </button>
+                                        <button onclick="rejectTopup('${request.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
+                                            Tolak
+                                        </button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function loadWithdrawalData() {
+            const container = document.getElementById('withdrawalDataList');
+            let withdrawalRequests;
+            
+            // Admin/Owner can see all withdrawal requests, members only see their own
+            if (currentUser.role === 'owner' || currentUser.role === 'admin') {
+                withdrawalRequests = transactions.filter(t => t.type === 'withdrawal_request');
+            } else {
+                withdrawalRequests = transactions.filter(t => 
+                    t.userId === currentUser.id && 
+                    t.type === 'withdrawal_request'
+                );
+            }
+            
+            container.innerHTML = '';
+            
+            if (withdrawalRequests.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Belum ada permintaan penarikan</p>';
+                return;
+            }
+            
+            withdrawalRequests.forEach(request => {
+                const user = users.find(u => u.id === request.userId);
+                const isAdmin = currentUser.role === 'owner' || currentUser.role === 'admin';
+                
+                const card = `
+                    <div class="bg-gray-50 rounded-lg p-4 border">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-800">Permintaan Penarikan</h4>
+                                <p class="text-gray-600">ID: ${request.id}</p>
+                                ${isAdmin ? `<p class="text-gray-600">Member: ${user ? user.name : 'Unknown'} (${request.userId})</p>` : ''}
+                                <p class="text-gray-600">Jumlah: Rp ${request.amount.toLocaleString('id-ID')}</p>
+                                <p class="text-gray-600">Tujuan: ${request.bankName}</p>
+                                <p class="text-gray-600">Rekening: ${request.accountNumber}</p>
+                                <p class="text-gray-600 text-sm">Tanggal: ${new Date(request.date).toLocaleDateString('id-ID', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}</p>
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(request.status)}">
+                                    ${getStatusText(request.status)}
+                                </span>
+                                ${isAdmin && request.status === 'pending' ? `
+                                    <div class="flex space-x-2">
+                                        <button onclick="approveWithdrawal('${request.id}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">
+                                            Setujui
+                                        </button>
+                                        <button onclick="rejectWithdrawal('${request.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">
+                                            Tolak
+                                        </button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'pending': return 'bg-yellow-100 text-yellow-800';
+                case 'progress': return 'bg-blue-100 text-blue-800';
+                case 'success': return 'bg-green-100 text-green-800';
+                case 'failed': return 'bg-red-100 text-red-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'Pending';
+                case 'progress': return 'Hampir Selesai';
+                case 'success': return 'Sukses';
+                case 'failed': return 'Gagal';
+                default: return 'Unknown';
+            }
+        }
+
+        // Saldo functions
+        function showSaldoForm(formType) {
+            document.getElementById('saldoFormContainer').classList.remove('hidden');
+            
+            // Hide all forms
+            document.querySelectorAll('.saldo-form').forEach(form => {
+                form.classList.add('hidden');
+            });
+            
+            // Show selected form
+            document.getElementById(formType + 'Form').classList.remove('hidden');
+            
+            // Fill user data
+            if (formType === 'topup') {
+                document.getElementById('topupName').value = currentUser.name;
+                document.getElementById('topupId').value = currentUser.id;
+            } else if (formType === 'withdrawal') {
+                document.getElementById('withdrawalName').value = currentUser.name;
+                document.getElementById('withdrawalId').value = currentUser.id;
+            }
+            
+            if (formType === 'points') {
+                document.getElementById('pointsDisplay').textContent = currentUser.points;
+            }
+        }
+
+        // Image modal functions
+        function showImageModal(imageSrc, title) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModalTitle').textContent = title;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.getElementById('modalImage').src = '';
+        }
+
+        // Submit top up request
+        function submitTopupRequest(event) {
+            event.preventDefault();
+            
+            const amount = parseInt(document.getElementById('topupAmount').value);
+            const method = document.getElementById('topupMethod').value;
+            const proofFile = document.getElementById('topupProof').files[0];
+            
+            if (amount < 10000) {
+                alert('Jumlah top up minimal Rp 10.000');
+                return;
+            }
+            
+            if (!proofFile) {
+                alert('Harap upload bukti pembayaran!');
+                return;
+            }
+            
+            // Convert image to base64
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Create top up request
+                const topupRequest = {
+                    id: 'TOPUP' + Date.now(),
+                    type: 'topup_request',
+                    userId: currentUser.id,
+                    userName: currentUser.name,
+                    amount: amount,
+                    paymentMethod: method,
+                    proofImage: proofFile.name,
+                    proofImageData: e.target.result,
+                    status: 'pending',
+                    date: new Date().toISOString()
+                };
+                
+                transactions.push(topupRequest);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                
+                alert('Permintaan top up berhasil dikirim! Menunggu konfirmasi admin.');
+                
+                // Reset form
+                event.target.reset();
+                document.getElementById('saldoFormContainer').classList.add('hidden');
+            };
+            
+            reader.readAsDataURL(proofFile);
+        }
+
+        // Submit withdrawal request
+        function submitWithdrawalRequest(event) {
+            event.preventDefault();
+            
+            const amount = parseInt(document.getElementById('withdrawalAmount').value);
+            const bankName = document.getElementById('withdrawalBank').value;
+            const accountNumber = document.getElementById('withdrawalAccount').value;
+            
+            if (amount < 50000) {
+                alert('Jumlah penarikan minimal Rp 50.000');
+                return;
+            }
+            
+            if (currentUser.balance < amount) {
+                alert('Saldo tidak mencukupi untuk penarikan ini!');
+                return;
+            }
+            
+            // Create withdrawal request
+            const withdrawalRequest = {
+                id: 'WD' + Date.now(),
+                type: 'withdrawal_request',
+                userId: currentUser.id,
+                userName: currentUser.name,
+                amount: amount,
+                bankName: bankName,
+                accountNumber: accountNumber,
+                status: 'pending',
+                date: new Date().toISOString()
+            };
+            
+            transactions.push(withdrawalRequest);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            alert('Permintaan penarikan berhasil dikirim! Menunggu konfirmasi admin.');
+            
+            // Reset form
+            event.target.reset();
+            document.getElementById('saldoFormContainer').classList.add('hidden');
+        }
+
+        // Search members for sending balance
+        function searchMembers() {
+            const searchTerm = document.getElementById('searchMember').value.toLowerCase();
+            const resultsContainer = document.getElementById('memberSearchResults');
+            
+            if (searchTerm.length < 2) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+            
+            const members = users.filter(user => 
+                (user.role === 'member' || user.role === 'admin') &&
+                (user.name.toLowerCase().includes(searchTerm) || user.id.toLowerCase().includes(searchTerm))
+            );
+            
+            if (members.length === 0) {
+                resultsContainer.innerHTML = '<p class="p-3 text-gray-500">Tidak ada member ditemukan</p>';
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+            
+            resultsContainer.innerHTML = '';
+            members.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100';
+                memberDiv.innerHTML = `
+                    <div class="font-semibold">${member.name}</div>
+                    <div class="text-sm text-gray-600">ID: ${member.id} | Saldo: Rp ${member.balance.toLocaleString('id-ID')}</div>
+                `;
+                memberDiv.onclick = () => selectMember(member);
+                resultsContainer.appendChild(memberDiv);
+            });
+            
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function selectMember(member) {
+            document.getElementById('selectedMember').value = `${member.name} (${member.id})`;
+            document.getElementById('selectedMemberId').value = member.id;
+            document.getElementById('memberSearchResults').classList.add('hidden');
+        }
+
+        // Search members for admin top up
+        function searchMembersAdminTopup() {
+            const searchTerm = document.getElementById('searchMemberAdminTopup').value.toLowerCase();
+            const resultsContainer = document.getElementById('memberSearchResultsAdminTopup');
+            
+            if (searchTerm.length < 2) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+            
+            const members = users.filter(user => 
+                (user.role === 'member' || user.role === 'admin') &&
+                (user.name.toLowerCase().includes(searchTerm) || user.id.toLowerCase().includes(searchTerm))
+            );
+            
+            if (members.length === 0) {
+                resultsContainer.innerHTML = '<p class="p-3 text-gray-500">Tidak ada member ditemukan</p>';
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+            
+            resultsContainer.innerHTML = '';
+            members.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100';
+                memberDiv.innerHTML = `
+                    <div class="font-semibold">${member.name}</div>
+                    <div class="text-sm text-gray-600">ID: ${member.id} | Saldo: Rp ${member.balance.toLocaleString('id-ID')}</div>
+                `;
+                memberDiv.onclick = () => selectMemberAdminTopup(member);
+                resultsContainer.appendChild(memberDiv);
+            });
+            
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function selectMemberAdminTopup(member) {
+            document.getElementById('selectedMemberAdminTopup').value = `${member.name} (${member.id})`;
+            document.getElementById('selectedMemberIdAdminTopup').value = member.id;
+            document.getElementById('currentMemberBalanceAdminTopup').value = `Rp ${member.balance.toLocaleString('id-ID')}`;
+            document.getElementById('memberSearchResultsAdminTopup').classList.add('hidden');
+        }
+
+        // Send balance function
+        function sendBalance(event) {
+            event.preventDefault();
+            
+            const memberId = document.getElementById('selectedMemberId').value;
+            const amount = parseInt(event.target.querySelector('input[type="number"]').value);
+            const description = event.target.querySelector('textarea').value;
+            
+            if (!memberId) {
+                alert('Pilih member terlebih dahulu!');
+                return;
+            }
+            
+            // Check if admin has sufficient balance (owner is exempt)
+            if (currentUser.role === 'admin' && currentUser.balance <= 0) {
+                alert('Saldo Admin tidak mencukupi! Anda tidak dapat mengirim saldo dengan saldo 0.\n\nHanya Owner yang dapat mengirim saldo tanpa batasan.');
+                return;
+            }
+            
+            // Additional check: Admin must have enough balance to send
+            if (currentUser.role === 'admin' && currentUser.balance < amount) {
+                alert(`Saldo Admin tidak mencukupi! Saldo Anda: Rp ${currentUser.balance.toLocaleString('id-ID')}\nJumlah yang akan dikirim: Rp ${amount.toLocaleString('id-ID')}\n\nHanya Owner yang dapat mengirim saldo tanpa batasan.`);
+                return;
+            }
+            
+            const memberIndex = users.findIndex(u => u.id === memberId);
+            if (memberIndex === -1) {
+                alert('Member tidak ditemukan!');
+                return;
+            }
+            
+            // Update member balance
+            users[memberIndex].balance += amount;
+            
+            // Deduct from admin balance (owner is exempt)
+            if (currentUser.role === 'admin') {
+                currentUser.balance -= amount;
+                const currentUserIndex = users.findIndex(u => u.id === currentUser.id);
+                if (currentUserIndex !== -1) {
+                    users[currentUserIndex].balance = currentUser.balance;
+                }
+            }
+            
+            // Create transaction record
+            const transaction = {
+                id: 'SEND' + Date.now(),
+                type: 'send_balance',
+                fromUserId: currentUser.id,
+                toUserId: memberId,
+                amount: amount,
+                description: description,
+                date: new Date().toISOString(),
+                status: 'completed'
+            };
+            
+            transactions.push(transaction);
+            
+            // Update storage
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Update display
+            updateUserDisplay();
+            
+            alert(`Berhasil mengirim Rp ${amount.toLocaleString('id-ID')} ke ${users[memberIndex].name}${currentUser.role === 'admin' ? `\n\nSaldo Admin berkurang: Rp ${amount.toLocaleString('id-ID')}` : ''}`);
+            
+            // Reset form
+            event.target.reset();
+            document.getElementById('selectedMember').value = '';
+            document.getElementById('selectedMemberId').value = '';
+            document.getElementById('saldoFormContainer').classList.add('hidden');
+        }
+
+        // Admin top up balance function
+        function adminTopupBalance(event) {
+            event.preventDefault();
+            
+            const memberId = document.getElementById('selectedMemberIdAdminTopup').value;
+            const amount = parseInt(event.target.querySelector('input[type="number"]').value);
+            const description = event.target.querySelector('textarea').value;
+            
+            if (!memberId) {
+                alert('Pilih member terlebih dahulu!');
+                return;
+            }
+            
+            // Check if admin has sufficient balance (owner is exempt)
+            if (currentUser.role === 'admin' && currentUser.balance <= 0) {
+                alert('Saldo Admin tidak mencukupi! Anda tidak dapat melakukan top up dengan saldo 0.\n\nHanya Owner yang dapat melakukan top up tanpa batasan.');
+                return;
+            }
+            
+            // Additional check: Admin must have enough balance for top up
+            if (currentUser.role === 'admin' && currentUser.balance < amount) {
+                alert(`Saldo Admin tidak mencukupi! Saldo Anda: Rp ${currentUser.balance.toLocaleString('id-ID')}\nJumlah top up: Rp ${amount.toLocaleString('id-ID')}\n\nHanya Owner yang dapat melakukan top up tanpa batasan.`);
+                return;
+            }
+            
+            const memberIndex = users.findIndex(u => u.id === memberId);
+            if (memberIndex === -1) {
+                alert('Member tidak ditemukan!');
+                return;
+            }
+            
+            // Update member balance
+            users[memberIndex].balance += amount;
+            
+            // Deduct from admin balance (owner is exempt)
+            if (currentUser.role === 'admin') {
+                currentUser.balance -= amount;
+                const currentUserIndex = users.findIndex(u => u.id === currentUser.id);
+                if (currentUserIndex !== -1) {
+                    users[currentUserIndex].balance = currentUser.balance;
+                }
+            }
+            
+            // Create transaction record
+            const transaction = {
+                id: 'ADMINTOPUP' + Date.now(),
+                type: 'admin_topup',
+                fromUserId: currentUser.id,
+                toUserId: memberId,
+                amount: amount,
+                description: description,
+                date: new Date().toISOString(),
+                status: 'completed'
+            };
+            
+            transactions.push(transaction);
+            
+            // Update storage
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Update display
+            updateUserDisplay();
+            
+            alert(`Berhasil menambah Rp ${amount.toLocaleString('id-ID')} ke saldo ${users[memberIndex].name}${currentUser.role === 'admin' ? `\n\nSaldo Admin berkurang: Rp ${amount.toLocaleString('id-ID')}` : ''}`);
+            
+            // Reset form
+            event.target.reset();
+            document.getElementById('selectedMemberAdminTopup').value = '';
+            document.getElementById('selectedMemberIdAdminTopup').value = '';
+            document.getElementById('currentMemberBalanceAdminTopup').value = '';
+            document.getElementById('saldoFormContainer').classList.add('hidden');
+        }
+
+        // Search members for reducing balance
+        function searchMembersReduce() {
+            const searchTerm = document.getElementById('searchMemberReduce').value.toLowerCase();
+            const resultsContainer = document.getElementById('memberSearchResultsReduce');
+            
+            if (searchTerm.length < 2) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+            
+            const members = users.filter(user => 
+                (user.role === 'member' || user.role === 'admin') &&
+                (user.name.toLowerCase().includes(searchTerm) || user.id.toLowerCase().includes(searchTerm))
+            );
+            
+            if (members.length === 0) {
+                resultsContainer.innerHTML = '<p class="p-3 text-gray-500">Tidak ada member ditemukan</p>';
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+            
+            resultsContainer.innerHTML = '';
+            members.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100';
+                memberDiv.innerHTML = `
+                    <div class="font-semibold">${member.name}</div>
+                    <div class="text-sm text-gray-600">ID: ${member.id} | Saldo: Rp ${member.balance.toLocaleString('id-ID')}</div>
+                `;
+                memberDiv.onclick = () => selectMemberReduce(member);
+                resultsContainer.appendChild(memberDiv);
+            });
+            
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function selectMemberReduce(member) {
+            document.getElementById('selectedMemberReduce').value = `${member.name} (${member.id})`;
+            document.getElementById('selectedMemberIdReduce').value = member.id;
+            document.getElementById('currentMemberBalanceReduce').value = `Rp ${member.balance.toLocaleString('id-ID')}`;
+            document.getElementById('memberSearchResultsReduce').classList.add('hidden');
+        }
+
+        // Reduce member balance function
+        function reduceMemberBalance(event) {
+            event.preventDefault();
+            
+            const memberId = document.getElementById('selectedMemberIdReduce').value;
+            const amount = parseInt(event.target.querySelector('input[type="number"]').value);
+            const reason = event.target.querySelector('textarea').value;
+            
+            if (!memberId) {
+                alert('Pilih member terlebih dahulu!');
+                return;
+            }
+            
+            const memberIndex = users.findIndex(u => u.id === memberId);
+            if (memberIndex === -1) {
+                alert('Member tidak ditemukan!');
+                return;
+            }
+            
+            if (users[memberIndex].balance < amount) {
+                alert('Saldo member tidak mencukupi untuk pengurangan ini!');
+                return;
+            }
+            
+            // Update member balance
+            users[memberIndex].balance -= amount;
+            
+            // Create transaction record
+            const transaction = {
+                id: 'REDUCE' + Date.now(),
+                type: 'reduce_balance',
+                fromUserId: currentUser.id,
+                toUserId: memberId,
+                amount: amount,
+                reason: reason,
+                date: new Date().toISOString(),
+                status: 'completed'
+            };
+            
+            transactions.push(transaction);
+            
+            // Update storage
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            alert(`Berhasil mengurangi Rp ${amount.toLocaleString('id-ID')} dari saldo ${users[memberIndex].name}`);
+            
+            // Reset form
+            event.target.reset();
+            document.getElementById('selectedMemberReduce').value = '';
+            document.getElementById('selectedMemberIdReduce').value = '';
+            document.getElementById('currentMemberBalanceReduce').value = '';
+            document.getElementById('saldoFormContainer').classList.add('hidden');
+        }
+
+        // Add admin function
+        function addAdmin(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: event.target.querySelector('input[type="text"]').value,
+                phone: event.target.querySelector('input[type="tel"]').value,
+                email: event.target.querySelector('input[type="email"]').value,
+                id: event.target.querySelectorAll('input[type="text"]')[1].value,
+                password: event.target.querySelector('input[type="password"]').value
+            };
+            
+            // Validation
+            if (formData.id.length < 6) {
+                alert('ID Admin minimal 6 digit!');
+                return;
+            }
+            
+            if (users.find(u => u.id === formData.id)) {
+                alert('ID Admin sudah digunakan!');
+                return;
+            }
+            
+            if (users.find(u => u.phone === formData.phone)) {
+                alert('Nomor HP sudah terdaftar!');
+                return;
+            }
+            
+            // Create new admin
+            const newAdmin = {
+                id: formData.id,
+                name: formData.name,
+                phone: formData.phone,
+                email: formData.email,
+                password: formData.password,
+                role: 'admin',
+                balance: 0,
+                points: 0,
+                joinDate: new Date().toISOString()
+            };
+            
+            users.push(newAdmin);
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            
+            alert(`Admin ${formData.name} berhasil ditambahkan!`);
+            event.target.reset();
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            document.getElementById('dashboard').classList.add('hidden');
+            showLogin();
+        }
+
+        // Admin functions for managing transactions
+        function updateTransactionStatus(transactionId, newStatus) {
+            const transactionIndex = transactions.findIndex(t => t.id === transactionId);
+            if (transactionIndex === -1) return;
+            
+            const transaction = transactions[transactionIndex];
+            const oldStatus = transaction.status;
+            
+            // Update transaction status
+            transactions[transactionIndex].status = newStatus;
+            
+            // If transaction is successful, add points to user
+            if (newStatus === 'success' && oldStatus !== 'success' && transaction.type === 'product_purchase') {
+                const userIndex = users.findIndex(u => u.id === transaction.userId);
+                if (userIndex !== -1) {
+                    users[userIndex].points += transaction.points;
+                    localStorage.setItem('filaShopUsers', JSON.stringify(users));
+                }
+            }
+            
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Refresh the display
+            showProductStatus(newStatus);
+            
+            alert(`Status transaksi berhasil diubah menjadi ${getStatusText(newStatus)}`);
+        }
+        
+        function approveTopup(requestId) {
+            const requestIndex = transactions.findIndex(t => t.id === requestId);
+            if (requestIndex === -1) return;
+            
+            const request = transactions[requestIndex];
+            const userIndex = users.findIndex(u => u.id === request.userId);
+            
+            if (userIndex === -1) {
+                alert('User tidak ditemukan!');
+                return;
+            }
+            
+            // Check if admin has sufficient balance (owner is exempt)
+            if (currentUser.role === 'admin' && currentUser.balance < request.amount) {
+                alert(`Maaf, saldo Anda sebagai admin kurang!\n\nSaldo Admin: Rp ${currentUser.balance.toLocaleString('id-ID')}\nJumlah Top Up: Rp ${request.amount.toLocaleString('id-ID')}\n\nSilakan isi ulang saldo terlebih dahulu agar bisa mengisi saldo member.\n\nTerima kasih!`);
+                return;
+            }
+            
+            // Update user balance
+            users[userIndex].balance += request.amount;
+            
+            // Deduct from admin balance (owner is exempt)
+            if (currentUser.role === 'admin') {
+                currentUser.balance -= request.amount;
+                const currentUserIndex = users.findIndex(u => u.id === currentUser.id);
+                if (currentUserIndex !== -1) {
+                    users[currentUserIndex].balance = currentUser.balance;
+                }
+            }
+            
+            // Update request status
+            transactions[requestIndex].status = 'success';
+            
+            // Update storage
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Update display
+            updateUserDisplay();
+            
+            // Refresh display
+            loadTopupData();
+            
+            alert(`Top up sebesar Rp ${request.amount.toLocaleString('id-ID')} untuk ${users[userIndex].name} berhasil disetujui!${currentUser.role === 'admin' ? `\n\nSaldo Admin berkurang: Rp ${request.amount.toLocaleString('id-ID')}` : ''}`);
+        }
+        
+        function rejectTopup(requestId) {
+            const requestIndex = transactions.findIndex(t => t.id === requestId);
+            if (requestIndex === -1) return;
+            
+            // Update request status
+            transactions[requestIndex].status = 'failed';
+            
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Refresh display
+            loadTopupData();
+            
+            alert('Permintaan top up berhasil ditolak!');
+        }
+        
+        function approveWithdrawal(requestId) {
+            const requestIndex = transactions.findIndex(t => t.id === requestId);
+            if (requestIndex === -1) return;
+            
+            const request = transactions[requestIndex];
+            const userIndex = users.findIndex(u => u.id === request.userId);
+            
+            if (userIndex === -1) {
+                alert('User tidak ditemukan!');
+                return;
+            }
+            
+            // Check if user still has enough balance
+            if (users[userIndex].balance < request.amount) {
+                alert('Saldo user tidak mencukupi untuk penarikan ini!');
+                return;
+            }
+            
+            // Check if admin has sufficient balance to process withdrawal (owner is exempt)
+            if (currentUser.role === 'admin' && currentUser.balance < request.amount) {
+                alert(`Maaf, saldo Anda sebagai admin kurang untuk memproses penarikan ini!\n\nSaldo Admin: Rp ${currentUser.balance.toLocaleString('id-ID')}\nJumlah Penarikan: Rp ${request.amount.toLocaleString('id-ID')}\n\nSilakan isi ulang saldo terlebih dahulu agar bisa memproses penarikan member.\n\nTerima kasih!`);
+                return;
+            }
+            
+            // Deduct user balance
+            users[userIndex].balance -= request.amount;
+            
+            // Deduct from admin balance (owner is exempt)
+            if (currentUser.role === 'admin') {
+                currentUser.balance -= request.amount;
+                const currentUserIndex = users.findIndex(u => u.id === currentUser.id);
+                if (currentUserIndex !== -1) {
+                    users[currentUserIndex].balance = currentUser.balance;
+                }
+            }
+            
+            // Update request status
+            transactions[requestIndex].status = 'success';
+            
+            // Update storage
+            localStorage.setItem('filaShopUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Update display
+            updateUserDisplay();
+            
+            // Refresh display
+            loadWithdrawalData();
+            
+            alert(`Penarikan sebesar Rp ${request.amount.toLocaleString('id-ID')} untuk ${users[userIndex].name} berhasil disetujui!${currentUser.role === 'admin' ? `\n\nSaldo Admin berkurang: Rp ${request.amount.toLocaleString('id-ID')}` : ''}`);
+        }
+        
+        function rejectWithdrawal(requestId) {
+            const requestIndex = transactions.findIndex(t => t.id === requestId);
+            if (requestIndex === -1) return;
+            
+            // Update request status
+            transactions[requestIndex].status = 'failed';
+            
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Refresh display
+            loadWithdrawalData();
+            
+            alert('Permintaan penarikan berhasil ditolak!');
+        }
+
+        // Profile functions
+        function loadProfileData() {
+            if (!currentUser) return;
+            
+            // Load profile image
+            if (currentUser.profileImage) {
+                document.getElementById('profileImage').src = currentUser.profileImage;
+                document.getElementById('profileImage').classList.remove('hidden');
+                document.getElementById('profileIcon').classList.add('hidden');
+            } else {
+                document.getElementById('profileImage').classList.add('hidden');
+                document.getElementById('profileIcon').classList.remove('hidden');
+            }
+            
+            // Fill basic info
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileRole').textContent = getRoleText(currentUser.role);
+            document.getElementById('profileFullName').value = currentUser.name;
+            document.getElementById('profileAccountId').value = currentUser.id;
+            document.getElementById('profilePhone').value = currentUser.phone;
+            document.getElementById('profileEmail').value = currentUser.email || '-';
+            document.getElementById('profileRoleField').value = getRoleText(currentUser.role);
+            
+            // Format join date
+            const joinDate = new Date(currentUser.joinDate);
+            document.getElementById('profileJoinDate').value = joinDate.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Show member-specific fields
+            if (currentUser.role === 'member') {
+                if (currentUser.age) {
+                    document.getElementById('profileAgeField').classList.remove('hidden');
+                    document.getElementById('profileAge').value = currentUser.age + ' tahun';
+                }
+                
+                if (currentUser.gender) {
+                    document.getElementById('profileGenderField').classList.remove('hidden');
+                    document.getElementById('profileGender').value = currentUser.gender === 'pria' ? 'Pria' : 'Wanita';
+                }
+                
+                // Show member statistics
+                document.getElementById('memberStats').classList.remove('hidden');
+                document.getElementById('profileBalance').textContent = 'Rp ' + currentUser.balance.toLocaleString('id-ID');
+                document.getElementById('profilePoints').textContent = currentUser.points + ' Poin';
+                
+                // Count user transactions
+                const userTransactions = transactions.filter(t => t.userId === currentUser.id && t.type === 'product_purchase');
+                document.getElementById('profileTransactions').textContent = userTransactions.length;
+            } else {
+                document.getElementById('profileAgeField').classList.add('hidden');
+                document.getElementById('profileGenderField').classList.add('hidden');
+                document.getElementById('memberStats').classList.add('hidden');
+            }
+        }
+        
+        function getRoleText(role) {
+            switch(role) {
+                case 'owner': return 'Owner';
+                case 'admin': return 'Administrator';
+                case 'member': return 'Member';
+                default: return 'Unknown';
+            }
+        }
+        
+        function triggerImageUpload() {
+            document.getElementById('profileImageInput').click();
+        }
+        
+        function uploadProfileImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Harap pilih file gambar yang valid!');
+                return;
+            }
+            
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // Update UI
+                document.getElementById('profileImage').src = imageData;
+                document.getElementById('profileImage').classList.remove('hidden');
+                document.getElementById('profileIcon').classList.add('hidden');
+                
+                // Save to user data
+                currentUser.profileImage = imageData;
+                
+                // Update in users array
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex].profileImage = imageData;
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('filaShopUsers', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                alert('Foto profil berhasil diperbarui!');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Advertisement Management Functions
+        function loadAnnouncements() {
+            const announcementBanner = document.getElementById('announcementBanner');
+            const announcementText = document.getElementById('announcementText');
+            const toggleIcon = document.getElementById('announcementToggleIcon');
+            
+            if (announcements.enabled) {
+                announcementBanner.classList.remove('hidden');
+                announcementText.textContent = announcements.text;
+                toggleIcon.className = 'fas fa-eye';
+            } else {
+                announcementBanner.classList.add('hidden');
+                toggleIcon.className = 'fas fa-eye-slash';
+            }
+        }
+        
+        function loadImageAd() {
+            const imageAdSection = document.getElementById('imageAdSection');
+            const adImage = document.getElementById('adImage');
+            const adTitle = document.getElementById('adTitle');
+            const adDescription = document.getElementById('adDescription');
+            const toggleIcon = document.getElementById('imageAdToggleIcon');
+            const toggleText = document.getElementById('imageAdToggleText');
+            
+            if (imageAd.enabled) {
+                imageAdSection.classList.remove('hidden');
+                adImage.src = imageAd.image;
+                adTitle.textContent = imageAd.title;
+                adDescription.textContent = imageAd.description;
+                toggleIcon.className = 'fas fa-eye';
+                toggleText.textContent = 'Sembunyikan';
+            } else {
+                imageAdSection.classList.add('hidden');
+                toggleIcon.className = 'fas fa-eye-slash';
+                toggleText.textContent = 'Tampilkan';
+            }
+        }
+        
+        function editAnnouncement() {
+            document.getElementById('editAnnouncementText').value = announcements.text;
+            document.getElementById('editAnnouncementModal').classList.remove('hidden');
+        }
+        
+        function closeEditAnnouncementModal() {
+            document.getElementById('editAnnouncementModal').classList.add('hidden');
+        }
+        
+        function saveAnnouncement(event) {
+            event.preventDefault();
+            
+            const newText = document.getElementById('editAnnouncementText').value.trim();
+            if (!newText) {
+                alert('Teks pengumuman tidak boleh kosong!');
+                return;
+            }
+            
+            announcements.text = newText;
+            localStorage.setItem('announcements', JSON.stringify(announcements));
+            
+            loadAnnouncements();
+            closeEditAnnouncementModal();
+            
+            alert('Pengumuman berhasil diperbarui!');
+        }
+        
+        function toggleAnnouncement() {
+            announcements.enabled = !announcements.enabled;
+            localStorage.setItem('announcements', JSON.stringify(announcements));
+            
+            loadAnnouncements();
+            
+            const status = announcements.enabled ? 'ditampilkan' : 'disembunyikan';
+            alert(`Pengumuman berhasil ${status}!`);
+        }
+        
+        function editImageAd() {
+            document.getElementById('editAdTitle').value = imageAd.title;
+            document.getElementById('editAdDescription').value = imageAd.description;
+            document.getElementById('editImageAdModal').classList.remove('hidden');
+        }
+        
+        function closeEditImageAdModal() {
+            document.getElementById('editImageAdModal').classList.add('hidden');
+        }
+        
+        function saveImageAd(event) {
+            event.preventDefault();
+            
+            const newTitle = document.getElementById('editAdTitle').value.trim();
+            const newDescription = document.getElementById('editAdDescription').value.trim();
+            const imageFile = document.getElementById('editAdImage').files[0];
+            
+            if (!newTitle || !newDescription) {
+                alert('Nama dan deskripsi iklan tidak boleh kosong!');
+                return;
+            }
+            
+            imageAd.title = newTitle;
+            imageAd.description = newDescription;
+            
+            if (imageFile) {
+                // Validate file type
+                if (!imageFile.type.startsWith('image/')) {
+                    alert('Harap pilih file gambar yang valid!');
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (imageFile.size > 5 * 1024 * 1024) {
+                    alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageAd.image = e.target.result;
+                    localStorage.setItem('imageAd', JSON.stringify(imageAd));
+                    
+                    loadImageAd();
+                    closeEditImageAdModal();
+                    
+                    alert('Iklan berhasil diperbarui!');
+                };
+                
+                reader.readAsDataURL(imageFile);
+            } else {
+                localStorage.setItem('imageAd', JSON.stringify(imageAd));
+                
+                loadImageAd();
+                closeEditImageAdModal();
+                
+                alert('Iklan berhasil diperbarui!');
+            }
+        }
+        
+        function toggleImageAd() {
+            imageAd.enabled = !imageAd.enabled;
+            localStorage.setItem('imageAd', JSON.stringify(imageAd));
+            
+            loadImageAd();
+            
+            const status = imageAd.enabled ? 'ditampilkan' : 'disembunyikan';
+            alert(`Iklan berhasil ${status}!`);
+        }
+        
+        function deleteImageAd() {
+            if (confirm('Apakah Anda yakin ingin menghapus iklan ini?')) {
+                imageAd = {
+                    title: 'Promo Spesial FILA SHOP',
+                    description: 'Dapatkan diskon hingga 50% untuk semua produk FILA! Buruan sebelum kehabisan!',
+                    image: 'https://via.placeholder.com/800x200/667eea/ffffff?text=FILA+SHOP+-+Promo+Spesial',
+                    enabled: true
+                };
+                
+                localStorage.setItem('imageAd', JSON.stringify(imageAd));
+                
+                loadImageAd();
+                
+                alert('Iklan berhasil dihapus dan dikembalikan ke default!');
+            }
+        }
+
+        // Category Management Functions
+        function loadCategoryFilters() {
+            const container = document.getElementById('categoryFilters');
+            container.innerHTML = '';
+            
+            categories.forEach(category => {
+                const isActive = selectedCategory === category.name;
+                const filterBtn = `
+                    <button onclick="filterByCategory('${category.name}')" 
+                            class="category-filter-btn px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}" 
+                            data-category="${category.name}">
+                        ${category.name}
+                    </button>
+                `;
+                container.innerHTML += filterBtn;
+            });
+        }
+        
+        function filterByCategory(categoryName) {
+            selectedCategory = categoryName;
+            localStorage.setItem('selectedCategory', selectedCategory);
+            
+            // Update filter button styles
+            document.querySelectorAll('.category-filter-btn').forEach(btn => {
+                const btnCategory = btn.getAttribute('data-category');
+                if (btnCategory === categoryName) {
+                    btn.className = 'category-filter-btn px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 bg-blue-600 text-white';
+                } else {
+                    btn.className = 'category-filter-btn px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300';
+                }
+            });
+            
+            loadProducts();
+        }
+        
+        function searchProducts() {
+            loadProducts();
+        }
+        
+        function showCategoryModal() {
+            loadCategoryList();
+            document.getElementById('categoryModal').classList.remove('hidden');
+        }
+        
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.add('hidden');
+        }
+        
+        function loadCategoryList() {
+            const container = document.getElementById('categoryList');
+            container.innerHTML = '';
+            
+            if (categories.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-4">Belum ada kategori</p>';
+                return;
+            }
+            
+            categories.forEach((category, index) => {
+                const categoryItem = `
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-tag text-blue-600"></i>
+                            <span class="font-medium text-gray-800">${category.name}</span>
+                            <span class="text-sm text-gray-500">(${products.filter(p => p.category === category.name).length} produk)</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="editCategory(${index})" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                <i class="fas fa-edit mr-1"></i>Edit
+                            </button>
+                            <button onclick="deleteCategory(${index})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                                <i class="fas fa-trash mr-1"></i>Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += categoryItem;
+            });
+        }
+        
+        function addCategory() {
+            const categoryName = document.getElementById('categoryNameInput').value.trim();
+            
+            if (!categoryName) {
+                alert('Nama kategori tidak boleh kosong!');
+                return;
+            }
+            
+            if (categories.find(cat => cat.name.toLowerCase() === categoryName.toLowerCase())) {
+                alert('Kategori sudah ada!');
+                return;
+            }
+            
+            const newCategory = {
+                id: 'CAT' + Date.now(),
+                name: categoryName,
+                createdAt: new Date().toISOString()
+            };
+            
+            categories.push(newCategory);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            document.getElementById('categoryNameInput').value = '';
+            loadCategoryList();
+            loadProductCategories();
+            loadCategoryFilters();
+            
+            alert(`Kategori "${categoryName}" berhasil ditambahkan!`);
+        }
+        
+        function editCategory(index) {
+            const category = categories[index];
+            const newName = prompt('Edit nama kategori:', category.name);
+            
+            if (!newName || newName.trim() === '') {
+                return;
+            }
+            
+            const trimmedName = newName.trim();
+            
+            if (categories.find((cat, i) => i !== index && cat.name.toLowerCase() === trimmedName.toLowerCase())) {
+                alert('Kategori dengan nama tersebut sudah ada!');
+                return;
+            }
+            
+            const oldName = category.name;
+            categories[index].name = trimmedName;
+            
+            // Update products that use this category
+            products.forEach(product => {
+                if (product.category === oldName) {
+                    product.category = trimmedName;
+                }
+            });
+            
+            localStorage.setItem('categories', JSON.stringify(categories));
+            localStorage.setItem('products', JSON.stringify(products));
+            
+            loadCategoryList();
+            loadProductCategories();
+            loadCategoryFilters();
+            loadProducts();
+            
+            alert(`Kategori berhasil diubah dari "${oldName}" menjadi "${trimmedName}"`);
+        }
+        
+        function deleteCategory(index) {
+            const category = categories[index];
+            const productsInCategory = products.filter(p => p.category === category.name);
+            
+            if (productsInCategory.length > 0) {
+                if (!confirm(`Kategori "${category.name}" memiliki ${productsInCategory.length} produk. Hapus kategori akan menghapus semua produk di dalamnya. Lanjutkan?`)) {
+                    return;
+                }
+                
+                // Remove products in this category
+                products = products.filter(p => p.category !== category.name);
+                localStorage.setItem('products', JSON.stringify(products));
+            }
+            
+            categories.splice(index, 1);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            // Reset selected category if it was deleted
+            if (selectedCategory === category.name) {
+                selectedCategory = 'all';
+                localStorage.setItem('selectedCategory', selectedCategory);
+            }
+            
+            loadCategoryList();
+            loadProductCategories();
+            loadCategoryFilters();
+            loadProducts();
+            
+            alert(`Kategori "${category.name}" berhasil dihapus!`);
+        }
+        
+        function loadProductCategories() {
+            const select = document.getElementById('productCategory');
+            select.innerHTML = '<option value="">Pilih Kategori</option>';
+            
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.name;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        }
+        
+        function showNewCategoryInput() {
+            document.getElementById('newCategoryInput').classList.remove('hidden');
+            document.getElementById('newCategoryName').focus();
+        }
+        
+        function hideNewCategoryInput() {
+            document.getElementById('newCategoryInput').classList.add('hidden');
+            document.getElementById('newCategoryName').value = '';
+        }
+        
+        function addNewCategory() {
+            const categoryName = document.getElementById('newCategoryName').value.trim();
+            
+            if (!categoryName) {
+                alert('Nama kategori tidak boleh kosong!');
+                return;
+            }
+            
+            if (categories.find(cat => cat.name.toLowerCase() === categoryName.toLowerCase())) {
+                alert('Kategori sudah ada!');
+                return;
+            }
+            
+            const newCategory = {
+                id: 'CAT' + Date.now(),
+                name: categoryName,
+                createdAt: new Date().toISOString()
+            };
+            
+            categories.push(newCategory);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            loadProductCategories();
+            
+            // Select the new category
+            document.getElementById('productCategory').value = categoryName;
+            
+            hideNewCategoryInput();
+            
+            alert(`Kategori "${categoryName}" berhasil ditambahkan dan dipilih!`);
+        }
+
+        // Initialize app
+        if (currentUser) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+
+        // Update time every second
+        setInterval(updateDateTime, 1000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97649bf966ccfd3c',t:'MTc1NjM5MjUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
